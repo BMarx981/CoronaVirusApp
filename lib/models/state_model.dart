@@ -11,7 +11,7 @@ class StateModel {
 
   StateModel(this.data, this.stateNames) {
     stateNames.forEach(
-      (item) => mapData[item] = StateData.n(),
+      (item) => mapData[item] = StateData(),
     );
     tempData = data.split('\n');
     tempData.removeAt(0);
@@ -31,24 +31,19 @@ class StateModel {
     assert(tempPos is int);
     int tempDeath = int.parse(item.split(',')[4]);
     assert(tempDeath is int);
-    StateData s = StateData(d, tempName, tempPos, tempDeath);
+    StateData s = StateData(
+        date: d, name: tempName, positiveCase: tempPos, deaths: tempDeath);
     mapData[s.name] = s;
   }
 }
 
 class StateData {
-  DateTime date;
+  final DateTime date;
   final String name;
   final int positiveCase;
   final int deaths;
 
-  StateData.n(
-      {this.date = DateTime.MinValue,
-      this.name = '',
-      this.deaths = 0,
-      this.positiveCase = 0});
-
-  StateData(this.date, this.name, this.positiveCase, this.deaths);
+  StateData({this.date, this.name, this.positiveCase, this.deaths});
 
   @override
   String toString() {

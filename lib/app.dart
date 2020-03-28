@@ -194,7 +194,8 @@ class _AppState extends State<App> {
             ),
             Image.network(
               widget.states[name],
-              fit: BoxFit.fitWidth,
+              fit: BoxFit.fill,
+              scale: .7,
             ),
             SizedBox(
               height: 8,
