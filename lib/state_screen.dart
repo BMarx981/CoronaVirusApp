@@ -84,7 +84,10 @@ class _StateScreenState extends State<StateScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        children: <Widget>[generateState('Alabama')],
+        children: <Widget>[
+          generateState('Alabama'),
+          generateState('Alaska'),
+        ],
       ),
       appBar: AppBar(
         title: Text('CoronaVirus data by State'),

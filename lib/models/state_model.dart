@@ -30,6 +30,7 @@ class StateModel {
     StateData s = StateData(
         date: d, name: tempName, positiveCase: tempPos, deaths: tempDeath);
     mapData[s.name] = s;
+    assert(mapData != null);
   }
 }
 
