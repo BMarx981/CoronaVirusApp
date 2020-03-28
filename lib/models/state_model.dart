@@ -1,13 +1,9 @@
-import 'dart:math';
-
 class StateModel {
   List<String> stateNames = [];
   Map<String, StateData> mapData = Map<String, StateData>();
   String data;
   List<StateData> sd = List<StateData>();
   List<String> tempData = List<String>();
-  Set<StateData> dataSet = Set<StateData>();
-  List<StateData> dataList = List<StateData>();
 
   StateModel(this.data, this.stateNames) {
     stateNames.forEach(
