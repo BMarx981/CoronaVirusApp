@@ -84,7 +84,6 @@ class _StateScreenState extends State<StateScreen> {
   }
 
   Future<Null> _refreshIt() async {
-    await sm.makeStateCall();
     setState(() {
       dataMap = sm.getMapData;
     });

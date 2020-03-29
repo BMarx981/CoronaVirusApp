@@ -56,14 +56,14 @@ const Map states = {
 };
 
 class CountyScreen extends StatefulWidget {
-  List<String> stateNames = [];
+  @override
+  _CountyScreenState createState() => _CountyScreenState();
+}
+
+class _CountyScreenState extends State<CountyScreen> {
+  List<String> stateNames = states.keys;
   String countyData;
   CountyModel cm;
-
-  CountyScreen() {
-    states.forEach((k, v) => stateNames.add(k));
-    stateNames.sort();
-  }
 
   makeCountyCall() async {
     NetworkHelper nh = NetworkHelper(
@@ -75,11 +75,6 @@ class CountyScreen extends StatefulWidget {
     );
   }
 
-  @override
-  _CountyScreenState createState() => _CountyScreenState();
-}
-
-class _CountyScreenState extends State<CountyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
