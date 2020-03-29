@@ -75,9 +75,10 @@ class _StateScreenState extends State<StateScreen> {
     states.forEach((k, v) => stateNames.add(k));
     stateNames.sort();
     sm = StateModel(stateNames);
-    sm.makeStateCall();
 
     setState(() {
+      sm.makeStateCall();
+      sm.setupData();
       dataMap = sm.getMapData;
     });
   }

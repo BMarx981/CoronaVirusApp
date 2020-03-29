@@ -9,7 +9,6 @@ class StateModel extends ChangeNotifier {
 
   StateModel(List<String> stateNames) {
     stateNames.forEach((item) => _mapData[item] = StateData());
-    setupData();
   }
 
   setupData() async {
