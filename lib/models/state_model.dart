@@ -1,6 +1,7 @@
 import 'package:coronavirus_app/networking/networking.dart';
+import 'package:flutter/cupertino.dart';
 
-class StateModel {
+class StateModel extends ChangeNotifier {
   Map<String, StateData> _mapData = Map<String, StateData>();
   String data;
   List<StateData> sd = List<StateData>();
@@ -34,6 +35,7 @@ class StateModel {
     StateData s = StateData(
         date: d, name: tempName, positiveCase: tempPos, deaths: tempDeath);
     _mapData[s.name] = s;
+    notifyListeners();
   }
 
   Future<String> makeStateCall() async {
@@ -43,7 +45,11 @@ class StateModel {
   }
 
   Map<String, StateData> get getMapData {
-    return _mapData;
+    if (_mapData.isEmpty) {
+      print('Empty');
+    } else {
+      return _mapData;
+    }
   }
 }
 

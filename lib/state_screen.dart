@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'models/state_model.dart';
-import 'networking/networking.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'county_screen.dart';
 
 const Map states = {
@@ -62,6 +62,7 @@ class StateScreen extends StatefulWidget {
 }
 
 class _StateScreenState extends State<StateScreen> {
+  final blue = Colors.blue[900];
   List<String> stateNames = [];
   String data;
   String countyData;
@@ -81,62 +82,76 @@ class _StateScreenState extends State<StateScreen> {
     });
   }
 
+  Future<Null> _refreshIt() async {
+    await sm.makeStateCall();
+    setState(() {
+      dataMap = sm.getMapData;
+    });
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: <Widget>[
-          generateState('Alabama'),
-          generateState('Alaska'),
-          generateState('Arizona'),
-          generateState('Arkansas'),
-          generateState('California'),
-          generateState('Colorado'),
-          generateState('Connecticut'),
-          generateState('Delaware'),
-          generateState('Florida'),
-          generateState('Georgia'),
-          generateState('Hawaii'),
-          generateState('Idaho'),
-          generateState('Illinois'),
-          generateState('Indiana'),
-          generateState('Iowa'),
-          generateState('Kansas'),
-          generateState('Kentucky'),
-          generateState('Louisiana'),
-          generateState('Maine'),
-          generateState('Maryland'),
-          generateState('Massachusetts'),
-          generateState('Michigan'),
-          generateState('Minnesota'),
-          generateState('Mississippi'),
-          generateState('Missouri'),
-          generateState('Montana'),
-          generateState('Nebraska'),
-          generateState('Nevada'),
-          generateState('New Hampshire'),
-          generateState('New Jersey'),
-          generateState('New Mexico'),
-          generateState('New York'),
-          generateState('North Carolina'),
-          generateState('North Dakota'),
-          generateState('Ohio'),
-          generateState('Oklahoma'),
-          generateState('Oregon'),
-          generateState('Pennsylvania'),
-          generateState('Rhode Island'),
-          generateState('South Carolina'),
-          generateState('South Dakota'),
-          generateState('Tennessee'),
-          generateState('Texas'),
-          generateState('Utah'),
-          generateState('Vermont'),
-          generateState('Virginia'),
-          generateState('Washington'),
-          generateState('West Virginia'),
-          generateState('Wisconsin'),
-          generateState('Wyoming'),
-        ],
+      backgroundColor: Colors.purple,
+      body: RefreshIndicator(
+        onRefresh: () {
+          return _refreshIt();
+        },
+        child: ListView(
+          children: <Widget>[
+            generateState('Alabama'),
+            generateState('Alaska'),
+            generateState('Arizona'),
+            generateState('Arkansas'),
+            generateState('California'),
+            generateState('Colorado'),
+            generateState('Connecticut'),
+            generateState('Delaware'),
+            generateState('Florida'),
+            generateState('Georgia'),
+            generateState('Hawaii'),
+            generateState('Idaho'),
+            generateState('Illinois'),
+            generateState('Indiana'),
+            generateState('Iowa'),
+            generateState('Kansas'),
+            generateState('Kentucky'),
+            generateState('Louisiana'),
+            generateState('Maine'),
+            generateState('Maryland'),
+            generateState('Massachusetts'),
+            generateState('Michigan'),
+            generateState('Minnesota'),
+            generateState('Mississippi'),
+            generateState('Missouri'),
+            generateState('Montana'),
+            generateState('Nebraska'),
+            generateState('Nevada'),
+            generateState('New Hampshire'),
+            generateState('New Jersey'),
+            generateState('New Mexico'),
+            generateState('New York'),
+            generateState('North Carolina'),
+            generateState('North Dakota'),
+            generateState('Ohio'),
+            generateState('Oklahoma'),
+            generateState('Oregon'),
+            generateState('Pennsylvania'),
+            generateState('Rhode Island'),
+            generateState('South Carolina'),
+            generateState('South Dakota'),
+            generateState('Tennessee'),
+            generateState('Texas'),
+            generateState('Utah'),
+            generateState('Vermont'),
+            generateState('Virginia'),
+            generateState('Washington'),
+            generateState('West Virginia'),
+            generateState('Wisconsin'),
+            generateState('Wyoming'),
+          ],
+        ),
       ),
       appBar: AppBar(
         title: Text('CoronaVirus data by State'),
@@ -145,7 +160,6 @@ class _StateScreenState extends State<StateScreen> {
   }
 
   Widget generateState(String name) {
-    final blue = Colors.blue[900];
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -212,19 +226,13 @@ class _StateScreenState extends State<StateScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    'Positive Cases: ${dataMap[name].positiveCase}',
-                    style: TextStyle(fontSize: 18, color: blue),
-                  ),
+                  spinOrText(dataMap, false, name),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    'Deaths: ${dataMap[name].deaths}',
-                    style: TextStyle(fontSize: 18, color: blue),
-                  ),
+                  spinOrText(dataMap, true, name),
                 ],
               ),
             ],
@@ -232,5 +240,23 @@ class _StateScreenState extends State<StateScreen> {
         ),
       ),
     );
+  }
+
+  Widget spinOrText(Map<String, StateData> map, bool death, String name) {
+    if (map != null) {
+      if (!death) {
+        return Text(
+          'Positive Cases: ${dataMap[name].positiveCase}',
+          style: TextStyle(fontSize: 18, color: blue),
+        );
+      } else {
+        return Text(
+          'Deaths: ${dataMap == null ? '' : dataMap[name].deaths}',
+          style: TextStyle(fontSize: 18, color: blue),
+        );
+      }
+    } else {
+      return const SpinKitThreeBounce(color: Colors.white);
+    }
   }
 }
