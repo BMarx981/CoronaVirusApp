@@ -14,30 +14,40 @@ class _CountyScreenState extends State<CountyScreen> {
   String name;
   String countyData;
   CountyModel cm;
+  List<String> counties = [];
 
   initState() {
     super.initState();
     name = widget.name;
+    cm = CountyModel(name);
+    setup();
   }
 
-  makeCountyCall() async {
-    NetworkHelper nh = NetworkHelper(
-        'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv');
-    countyData = await nh.getData();
-    cm = CountyModel(
-      countyData,
-    );
+  setup() async {
+    await cm.setupCountyData();
+    setState(() {
+      counties = cm.counties;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('CoronaVirus data by County'),
+        title: Text('$name counties'),
       ),
       body: Container(
-        child: Text('Counties'),
+        child: ListView.builder(
+          itemCount: counties.length,
+          itemBuilder: (context, index) {
+            return countyBuilder(index);
+          },
+        ),
       ),
     );
+  }
+
+  Widget countyBuilder(int index) {
+    return Container(child: Text(counties[index]));
   }
 }

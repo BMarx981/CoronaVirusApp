@@ -5,13 +5,13 @@ class StateModel extends ChangeNotifier {
   Map<String, StateData> _mapData = Map<String, StateData>();
   String data;
   List<StateData> sd = List<StateData>();
-  List<String> tempData = List<String>();
 
   StateModel(List<String> stateNames) {
     stateNames.forEach((item) => _mapData[item] = StateData());
   }
 
   setupData() async {
+    List<String> tempData = List<String>();
     data = await makeStateCall();
     tempData = data.split('\n');
     tempData.removeAt(0);
