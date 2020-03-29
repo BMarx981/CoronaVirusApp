@@ -47,9 +47,8 @@ class StateModel extends ChangeNotifier {
   Map<String, StateData> get getMapData {
     if (_mapData.isEmpty) {
       print('Empty');
-    } else {
-      return _mapData;
     }
+    return _mapData;
   }
 }
 
