@@ -57,29 +57,30 @@ const Map states = {
 };
 
 class StateScreen extends StatefulWidget {
-  List<String> stateNames = [];
-  String data;
-  String countyData;
-  StateModel sm;
-
-  StateScreen() {
-    states.forEach((k, v) => stateNames.add(k));
-    stateNames.sort();
-    makeStateCall();
-  }
-
-  makeStateCall() async {
-    NetworkHelper nh = NetworkHelper(
-        'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv');
-    data = await nh.getData();
-    sm = StateModel(data, stateNames);
-  }
-
   @override
   _StateScreenState createState() => _StateScreenState();
 }
 
 class _StateScreenState extends State<StateScreen> {
+  List<String> stateNames = [];
+  String data;
+  String countyData;
+  StateModel sm;
+  Map<String, StateData> dataMap = Map<String, StateData>();
+
+  @override
+  initState() {
+    super.initState();
+    states.forEach((k, v) => stateNames.add(k));
+    stateNames.sort();
+    sm = StateModel(stateNames);
+    sm.makeStateCall();
+
+    setState(() {
+      dataMap = sm.getMapData;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,7 +148,9 @@ class _StateScreenState extends State<StateScreen> {
     final blue = Colors.blue[900];
     return GestureDetector(
       onTap: () {
-        print('Pushed');
+        setState(() {
+          dataMap = sm.getMapData;
+        });
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -210,7 +213,7 @@ class _StateScreenState extends State<StateScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Positive Cases: ${widget.sm.mapData[name].positiveCase}',
+                    'Positive Cases: ${dataMap[name].positiveCase}',
                     style: TextStyle(fontSize: 18, color: blue),
                   ),
                 ],
@@ -219,7 +222,7 @@ class _StateScreenState extends State<StateScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Deaths: ${widget.sm.mapData[name].deaths}',
+                    'Deaths: ${dataMap[name].deaths}',
                     style: TextStyle(fontSize: 18, color: blue),
                   ),
                 ],

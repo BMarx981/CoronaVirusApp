@@ -1,14 +1,18 @@
+import 'package:coronavirus_app/networking/networking.dart';
+
 class StateModel {
-  List<String> stateNames = [];
-  Map<String, StateData> mapData = Map<String, StateData>();
+  Map<String, StateData> _mapData = Map<String, StateData>();
   String data;
   List<StateData> sd = List<StateData>();
   List<String> tempData = List<String>();
 
-  StateModel(this.data, this.stateNames) {
-    stateNames.forEach(
-      (item) => mapData[item] = StateData(),
-    );
+  StateModel(List<String> stateNames) {
+    stateNames.forEach((item) => _mapData[item] = StateData());
+    setupData();
+  }
+
+  setupData() async {
+    data = await makeStateCall();
     tempData = data.split('\n');
     tempData.removeAt(0);
     tempData.forEach((item) => getNumbersFromNames(item));
@@ -29,16 +33,25 @@ class StateModel {
     assert(tempDeath is int);
     StateData s = StateData(
         date: d, name: tempName, positiveCase: tempPos, deaths: tempDeath);
-    mapData[s.name] = s;
-    assert(mapData != null);
+    _mapData[s.name] = s;
+  }
+
+  Future<String> makeStateCall() async {
+    NetworkHelper nh = NetworkHelper(
+        'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv');
+    return await nh.getData();
+  }
+
+  Map<String, StateData> get getMapData {
+    return _mapData;
   }
 }
 
 class StateData {
-  final DateTime date;
-  final String name;
-  final int positiveCase;
-  final int deaths;
+  DateTime date = DateTime.now();
+  String name = '';
+  int positiveCase = 0;
+  int deaths = 0;
 
   StateData({this.date, this.name, this.positiveCase, this.deaths});
 
