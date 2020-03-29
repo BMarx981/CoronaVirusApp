@@ -8,7 +8,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       routes: {
         'states': (context) => StateScreen(),
-        'counties': (context) => CountyScreen(),
+        'counties': (context) => CountyScreen(''),
       },
       initialRoute: 'states',
     );

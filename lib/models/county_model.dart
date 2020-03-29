@@ -2,10 +2,9 @@ import 'dart:async';
 import 'package:coronavirus_app/networking/networking.dart';
 
 class CountyModel {
-  List<String> stateNames = [];
   String name = '';
 
-  CountyModel(this.stateNames, this.name);
+  CountyModel(this.name);
 
   Future<String> makeCountyCall() async {
     NetworkHelper nh = NetworkHelper(
@@ -19,6 +18,7 @@ class CountyModel {
 class CountyData {
   List counties = [];
   String stateName;
+  CountyData(this.counties, this.stateName);
 }
 
 class County {

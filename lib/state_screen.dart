@@ -168,7 +168,7 @@ class _StateScreenState extends State<StateScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => CountyScreen(),
+            builder: (BuildContext context) => CountyScreen(name),
           ),
         );
       },
