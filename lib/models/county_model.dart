@@ -22,6 +22,7 @@ class CountyModel {
       }
     });
     counties = countySet.toList();
+    getNumbersFromData(tempCountyData, counties);
     return tempCountyData;
   }
 
@@ -31,14 +32,28 @@ class CountyModel {
     return await nh.getData();
   }
 
-  Future<CountyData> getNumbersFromData(String data) async {}
+  Future<Map<String, CountyData>> getNumbersFromData(
+      List<String> countyData, List<String> counties) async {
+    Map<String, CountyData> countyMap = Map<String, CountyData>();
+    countyData.forEach((item) {
+      List<String> tempDateList = item.split('-');
+      DateTime date = DateTime(int.parse(tempDateList[0]),
+          int.parse(tempDateList[1]), int.parse(tempDateList[2]));
+      String county = item.split(',')[1];
+      int posCases = int.parse(item.split(',')[3]);
+      int deaths = int.parse(item.split(',')[4]);
+      countyMap[county] = CountyData(date, county, posCases, deaths);
+    });
+  }
 }
 
 class CountyData {
   DateTime date = DateTime.now();
-  List counties = [];
-  String stateName = '';
-  CountyData(this.counties, this.stateName);
+  String name;
+  int posCases;
+  int deaths;
+
+  CountyData(this.date, this.name, this.posCases, this.deaths);
 }
 
 class County {
