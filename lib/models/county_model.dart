@@ -7,7 +7,7 @@ class CountyModel {
 
   CountyModel(this.name);
 
-  Future<List<String>> setupCountyData() async {
+  Future<Map<String, CountyData>> setupCountyData() async {
     String data = await makeCountyCall();
     List<String> tempData = data.split('\n');
     tempData.remove(0);
@@ -22,8 +22,8 @@ class CountyModel {
       }
     });
     counties = countySet.toList();
-    getNumbersFromData(tempCountyData, counties);
-    return tempCountyData;
+
+    return _getNumbersFromData(tempCountyData, counties);
   }
 
   Future<String> makeCountyCall() async {
@@ -32,18 +32,22 @@ class CountyModel {
     return await nh.getData();
   }
 
-  Future<Map<String, CountyData>> getNumbersFromData(
+  Future<Map<String, CountyData>> _getNumbersFromData(
       List<String> countyData, List<String> counties) async {
     Map<String, CountyData> countyMap = Map<String, CountyData>();
     countyData.forEach((item) {
-      List<String> tempDateList = item.split('-');
-      DateTime date = DateTime(int.parse(tempDateList[0]),
-          int.parse(tempDateList[1]), int.parse(tempDateList[2]));
+      List tempDateList = item.split('-');
+      DateTime date = DateTime(
+        int.parse(tempDateList[0]),
+        int.parse(tempDateList[1]),
+        int.parse(tempDateList[2]),
+      );
       String county = item.split(',')[1];
       int posCases = int.parse(item.split(',')[3]);
       int deaths = int.parse(item.split(',')[4]);
       countyMap[county] = CountyData(date, county, posCases, deaths);
     });
+    return countyMap;
   }
 }
 

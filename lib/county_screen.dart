@@ -4,6 +4,7 @@ import 'models/county_model.dart';
 
 class CountyScreen extends StatefulWidget {
   String name;
+  Map<String, CountyData> data;
 
   CountyScreen(this.name);
   @override
@@ -24,9 +25,11 @@ class _CountyScreenState extends State<CountyScreen> {
   }
 
   setup() async {
-    await cm.setupCountyData();
+    widget.data = await cm.setupCountyData();
+    await print(widget.data);
     setState(() {
       counties = cm.counties;
+      counties.sort();
     });
   }
 

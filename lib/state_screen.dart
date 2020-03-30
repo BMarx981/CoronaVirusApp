@@ -64,8 +64,9 @@ class StateScreen extends StatefulWidget {
 class _StateScreenState extends State<StateScreen> {
   final blue = Colors.blue[900];
   List<String> stateNames = [];
+  String posCases = '';
+  String deaths = '';
   String data;
-  String countyData;
   StateModel sm;
   Map<String, StateData> dataMap = Map<String, StateData>();
 
@@ -248,12 +249,12 @@ class _StateScreenState extends State<StateScreen> {
     if (map != null) {
       if (!death) {
         return Text(
-          'Positive Cases: ${dataMap[name].positiveCase}',
+          'Positive Cases: ${dataMap.isEmpty ? '' : dataMap[name].positiveCase}',
           style: TextStyle(fontSize: 18, color: blue),
         );
       } else {
         return Text(
-          'Deaths: ${dataMap == null ? '' : dataMap[name].deaths}',
+          'Deaths: ${dataMap.isEmpty ? '' : dataMap[name].deaths}',
           style: TextStyle(fontSize: 18, color: blue),
         );
       }
