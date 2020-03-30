@@ -26,8 +26,8 @@ class _CountyScreenState extends State<CountyScreen> {
 
   setup() async {
     widget.data = await cm.setupCountyData();
-    await print(widget.data);
     setState(() {
+      print('data: ${widget.data}');
       counties = cm.counties;
       counties.sort();
     });

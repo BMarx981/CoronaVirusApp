@@ -36,7 +36,9 @@ class CountyModel {
       List<String> countyData, List<String> counties) async {
     Map<String, CountyData> countyMap = Map<String, CountyData>();
     countyData.forEach((item) {
-      List tempDateList = item.split('-');
+      print(item);
+      List spList = item.split(',');
+      List tempDateList = spList[0].split('-');
       DateTime date = DateTime(
         int.parse(tempDateList[0]),
         int.parse(tempDateList[1]),
