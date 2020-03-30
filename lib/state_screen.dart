@@ -64,9 +64,6 @@ class StateScreen extends StatefulWidget {
 class _StateScreenState extends State<StateScreen> {
   final blue = Colors.blue[900];
   List<String> stateNames = [];
-  String posCases = '';
-  String deaths = '';
-  String data;
   StateModel sm;
   Map<String, StateData> dataMap = Map<String, StateData>();
 
