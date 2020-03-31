@@ -44,7 +44,6 @@ class CountyModel {
       countyMap[county] = CountyData(county, date, posCases, deaths);
     });
     countyMap.keys.forEach((county) {
-      print(county);
       DateTime lastDate = countyMap[county].date;
       DateTime sevenDaysAgo = lastDate.subtract(Duration(days: 7));
       for (var i = countyData.length - 1; i > 0; i--) {
@@ -53,7 +52,9 @@ class CountyModel {
             getDateTime(splitData[0]) == sevenDaysAgo) {
           countyMap[county].deathPercent = calculatePercentage(
               countyMap[county].deaths, int.parse(splitData[5]));
-          print(countyMap[county].deathPercent);
+          countyMap[county].posPercent = calculatePercentage(
+              countyMap[county].posCases, int.parse(splitData[4]));
+          print('${countyMap[county].posPercent}% Positive cases');
         }
       }
     });
@@ -61,7 +62,16 @@ class CountyModel {
   }
 
   int calculatePercentage(int current, int last) {
-    return (((current - last) * 100) / last).round();
+    print('$current: current');
+    print('$last: Last');
+    if (current == 0) {
+      return 0;
+    }
+    if (last == 0 && current > 0) {
+      return current * 100;
+    }
+    int subtract = current - last;
+    return ((subtract / current) * 100).round();
   }
 
   DateTime getDateTime(String origInfo) {
