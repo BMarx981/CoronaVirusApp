@@ -36,7 +36,6 @@ class CountyModel {
       List<String> countyData, List<String> counties) async {
     Map<String, CountyData> countyMap = Map<String, CountyData>();
     countyData.forEach((item) {
-      print(item);
       List spList = item.split(',');
       List tempDateList = spList[0].split('-');
       DateTime date = DateTime(
@@ -45,8 +44,8 @@ class CountyModel {
         int.parse(tempDateList[2]),
       );
       String county = item.split(',')[1];
-      int posCases = int.parse(item.split(',')[3]);
-      int deaths = int.parse(item.split(',')[4]);
+      int posCases = int.parse(item.split(',')[4]);
+      int deaths = int.parse(item.split(',')[5]);
       countyMap[county] = CountyData(date, county, posCases, deaths);
     });
     return countyMap;
@@ -60,10 +59,9 @@ class CountyData {
   int deaths;
 
   CountyData(this.date, this.name, this.posCases, this.deaths);
-}
 
-class County {
-  String name;
-  String positiveCases;
-  String deaths;
+  @override
+  String toString() {
+    return 'Date: $date, Name: $name, Positive Cases: $posCases, Deaths: $deaths';
+  }
 }
