@@ -37,18 +37,40 @@ class CountyModel {
     Map<String, CountyData> countyMap = Map<String, CountyData>();
     countyData.forEach((item) {
       List spList = item.split(',');
-      List tempDateList = spList[0].split('-');
-      DateTime date = DateTime(
-        int.parse(tempDateList[0]),
-        int.parse(tempDateList[1]),
-        int.parse(tempDateList[2]),
-      );
+      DateTime date = getDateTime(spList[0]);
       String county = item.split(',')[1];
       int posCases = int.parse(item.split(',')[4]);
       int deaths = int.parse(item.split(',')[5]);
-      countyMap[county] = CountyData(date, county, posCases, deaths);
+      countyMap[county] = CountyData(county, date, posCases, deaths);
+    });
+    countyMap.keys.forEach((county) {
+      print(county);
+      DateTime lastDate = countyMap[county].date;
+      DateTime sevenDaysAgo = lastDate.subtract(Duration(days: 7));
+      for (var i = countyData.length - 1; i > 0; i--) {
+        List splitData = countyData[i].split(',');
+        if (splitData[1] == county &&
+            getDateTime(splitData[0]) == sevenDaysAgo) {
+          countyMap[county].deathPercent = calculatePercentage(
+              countyMap[county].deaths, int.parse(splitData[5]));
+          print(countyMap[county].deathPercent);
+        }
+      }
     });
     return countyMap;
+  }
+
+  int calculatePercentage(int current, int last) {
+    return (((current - last) * 100) / last).round();
+  }
+
+  DateTime getDateTime(String origInfo) {
+    List tempString = origInfo.split('-');
+    return DateTime(
+      int.parse(tempString[0]),
+      int.parse(tempString[1]),
+      int.parse(tempString[2]),
+    );
   }
 }
 
@@ -57,8 +79,15 @@ class CountyData {
   String name;
   int posCases;
   int deaths;
+  int posPercent;
+  int deathPercent;
 
-  CountyData(this.date, this.name, this.posCases, this.deaths);
+  CountyData(this.name,
+      [this.date,
+      this.posCases,
+      this.deaths,
+      this.posPercent,
+      this.deathPercent]);
 
   @override
   String toString() {
