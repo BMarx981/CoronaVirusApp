@@ -76,13 +76,31 @@ class _CountyScreenState extends State<CountyScreen> {
               SizedBox(
                 height: 6.0,
               ),
-              Text(
-                'Positive Cases: ${cData.posCases}',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    'Positive Cases: ${cData.posCases}.  ',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                  Text(
+                    '${cData.posPercent}% since last week.',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                ],
               ),
-              Text(
-                'Deaths: ${cData.deaths}',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    'Deaths: ${cData.deaths}.  ',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                  Text(
+                    '${cData.deathPercent}% since last week.',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                ],
               ),
             ],
           ),

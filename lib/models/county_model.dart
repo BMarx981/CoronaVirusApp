@@ -43,18 +43,34 @@ class CountyModel {
       int deaths = int.parse(item.split(',')[5]);
       countyMap[county] = CountyData(county, date, posCases, deaths);
     });
-    countyMap.keys.forEach((county) {
+    List<String> keys = countyMap.keys.toList();
+    keys.sort();
+    keys.forEach((county) {
       DateTime lastDate = countyMap[county].date;
       DateTime sevenDaysAgo = lastDate.subtract(Duration(days: 7));
+      DateTime eightDaysAgo = sevenDaysAgo.subtract(Duration(days: 1));
+
       for (var i = countyData.length - 1; i > 0; i--) {
-        List splitData = countyData[i].split(',');
-        if (splitData[1] == county &&
-            getDateTime(splitData[0]) == sevenDaysAgo) {
+        if (countyData[i].contains(county) &&
+            getDateTime(countyData[i].split(',')[0]) == sevenDaysAgo) {
+          List splitData = countyData[i].split(',');
           countyMap[county].deathPercent = calculatePercentage(
               countyMap[county].deaths, int.parse(splitData[5]));
+
           countyMap[county].posPercent = calculatePercentage(
               countyMap[county].posCases, int.parse(splitData[4]));
-          print('${countyMap[county].posPercent}% Positive cases');
+
+          if (getDateTime(splitData[0]) == eightDaysAgo) {
+            break;
+          }
+          break;
+        } // end if
+
+        if (countyMap[county].posPercent == null) {
+          countyMap[county].posPercent = countyMap[county].posCases * 100;
+        }
+        if (countyMap[county].deathPercent == null) {
+          countyMap[county].deathPercent = countyMap[county].deaths * 100;
         }
       }
     });
@@ -62,8 +78,6 @@ class CountyModel {
   }
 
   int calculatePercentage(int current, int last) {
-    print('$current: current');
-    print('$last: Last');
     if (current == 0) {
       return 0;
     }
@@ -71,7 +85,11 @@ class CountyModel {
       return current * 100;
     }
     int subtract = current - last;
-    return ((subtract / current) * 100).round();
+    int answer = ((subtract / current) * 100).round();
+    if (answer == null) {
+      return 0;
+    }
+    return answer;
   }
 
   DateTime getDateTime(String origInfo) {
