@@ -62,7 +62,7 @@ class StateScreen extends StatefulWidget {
 }
 
 class _StateScreenState extends State<StateScreen> {
-  final blue = Colors.blue[900];
+  final blue = Colors.white;
   List<String> stateNames = [];
   StateModel sm;
   Map<String, StateData> dataMap = Map<String, StateData>();
@@ -93,7 +93,7 @@ class _StateScreenState extends State<StateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.white,
       body: RefreshIndicator(
         onRefresh: () {
           return _refreshIt();
@@ -155,7 +155,16 @@ class _StateScreenState extends State<StateScreen> {
       ),
       appBar: AppBar(
         title: Text('CoronaVirus data by State'),
-        backgroundColor: Color.fromARGB(255, 140, 120, 240),
+        backgroundColor: Color.fromARGB(255, 150, 110, 250),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              icon: Icon(Icons.info),
+              onPressed: () {},
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -180,19 +189,19 @@ class _StateScreenState extends State<StateScreen> {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Colors.grey[500],
-                blurRadius: 20.0, // has the effect of softening the shadow
-                spreadRadius: 4.0, // has the effect of extending the shadow
+                color: Colors.black54,
+                blurRadius: 10.0, // has the effect of softening the shadow
+                spreadRadius: 0.3, // has the effect of extending the shadow
                 offset: Offset(
                   1.0, // horizontal, move right 10
-                  3.0, // vertical, move down 10
+                  4.0, // vertical, move down 10
                 ),
               )
             ],
-            color: Colors.grey[350],
+            color: Color.fromARGB(255, 140, 120, 240),
             border: Border.all(
               color: Colors.black,
-              width: 3,
+              width: 2,
             ),
             borderRadius: BorderRadius.all(
               Radius.elliptical(
