@@ -38,6 +38,7 @@ class _CountyScreenState extends State<CountyScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('$name counties'),
+        backgroundColor: Color.fromARGB(255, 140, 120, 240),
       ),
       body: Container(
         color: Colors.purple[200],

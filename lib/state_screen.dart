@@ -155,6 +155,7 @@ class _StateScreenState extends State<StateScreen> {
       ),
       appBar: AppBar(
         title: Text('CoronaVirus data by State'),
+        backgroundColor: Color.fromARGB(255, 140, 120, 240),
       ),
     );
   }

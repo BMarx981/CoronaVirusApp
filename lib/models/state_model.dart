@@ -27,9 +27,7 @@ class StateModel {
     );
     String tempName = item.split(',')[1];
     int tempPos = int.parse(item.split(',')[3]);
-    assert(tempPos is int);
     int tempDeath = int.parse(item.split(',')[4]);
-    assert(tempDeath is int);
     StateData s = StateData(
         date: d, name: tempName, positiveCase: tempPos, deaths: tempDeath);
     _mapData[s.name] = s;
