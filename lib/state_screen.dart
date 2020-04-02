@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'models/state_model.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'county_screen.dart';
+import 'info_screen.dart';
 
 const Map states = {
   'Alabama': 'http://www.state-flags-usa.com/flags/alabama.jpg',
@@ -155,13 +156,24 @@ class _StateScreenState extends State<StateScreen> {
       ),
       appBar: AppBar(
         title: Text('CoronaVirus data by State'),
-        backgroundColor: Color.fromARGB(255, 150, 110, 250),
+        backgroundColor: Color.fromARGB(
+          255,
+          23,
+          179,
+          15,
+        ), //Color.fromARGB(255, 150, 110, 250),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: IconButton(
               icon: Icon(Icons.info),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => InfoScreen()),
+                );
+              },
             ),
           ),
         ],

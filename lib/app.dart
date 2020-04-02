@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'state_screen.dart';
 import 'county_screen.dart';
+import 'info_screen.dart';
 
 class App extends StatelessWidget {
   @override
@@ -9,6 +10,7 @@ class App extends StatelessWidget {
       routes: {
         'states': (context) => StateScreen(),
         'counties': (context) => CountyScreen(''),
+        'info': (context) => InfoScreen(),
       },
       initialRoute: 'states',
     );
