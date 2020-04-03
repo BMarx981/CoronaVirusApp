@@ -199,7 +199,8 @@ class _StateScreenState extends State<StateScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => CountyScreen(name, counties),
+            builder: (BuildContext context) =>
+                CountyScreen(name, counties, 'lib/assets/${states[name]}'),
           ),
         );
       },
@@ -246,11 +247,18 @@ class _StateScreenState extends State<StateScreen> {
               SizedBox(
                 height: 8,
               ),
-              Image(
-                image: AssetImage(
-                  'lib/assets/${states[name]}',
+              Hero(
+                tag: name,
+                child: Container(
+                  height: 150,
+                  width: 250,
+                  child: Image(
+                    image: AssetImage(
+                      'lib/assets/${states[name]}',
+                    ),
+                    fit: BoxFit.contain,
+                  ),
                 ),
-                fit: BoxFit.contain,
               ),
               SizedBox(
                 height: 8,
