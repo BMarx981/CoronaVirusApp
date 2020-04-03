@@ -52,15 +52,16 @@ class _CountyScreenState extends State<CountyScreen> {
         children: <Widget>[
           Hero(
             tag: name,
-            child: Container(
-              color: Colors.purple[200],
-              height: 150,
-              width: 250,
-              child: Image(
-                height: 150,
-                width: 250,
-                image: AssetImage(
-                  '${widget.stateNamesAsset}',
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                color: Colors.purple[200],
+                child: Image(
+//                  height: 150,
+//                  width: 250,
+                  image: AssetImage(
+                    '${widget.stateNamesAsset}',
+                  ),
                 ),
               ),
             ),

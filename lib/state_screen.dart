@@ -14,7 +14,7 @@ const Map states = {
   'Colorado': 'colorado.jpg',
   'Connecticut': 'connecticut.jpg',
   'Delaware': 'delaware.jpg',
-  'District of Columbia': 'District of Columbia.png',
+  'District of Columbia': 'District of Columbia.jpg',
   'Florida': 'florida.jpg',
   'Georgia': 'georgia.jpg',
   'Hawaii': 'hawaii.jpg',
