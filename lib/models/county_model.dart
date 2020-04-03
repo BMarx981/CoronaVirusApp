@@ -5,10 +5,11 @@ class CountyModel {
   String name = '';
   List<String> counties = [];
 
+  CountyModel.empty();
   CountyModel(this.name);
 
-  Future<Map<String, CountyData>> setupCountyData() async {
-    String data = await makeCountyCall();
+  Future<Map<String, CountyData>> setupCountyData(String countiesAPI) {
+    String data = countiesAPI;
     List<String> tempData = data.split('\n');
     tempData.remove(0);
     List<String> tempCountyData = [];

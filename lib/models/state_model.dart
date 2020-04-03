@@ -12,6 +12,7 @@ class StateModel {
   Future setupData() async {
     List<String> tempData = List<String>();
     data = await makeStateCall();
+
     tempData = data.split('\n');
     tempData.removeAt(0);
     tempData.forEach((item) => getNumbersFromNames(item));

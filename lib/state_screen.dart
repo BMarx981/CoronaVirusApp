@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'models/state_model.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'county_screen.dart';
+import 'models/county_model.dart';
 import 'info_screen.dart';
 
 const Map states = {
@@ -13,6 +14,8 @@ const Map states = {
   'Colorado': 'http://www.state-flags-usa.com/flags/colorado.jpg',
   'Connecticut': 'http://www.state-flags-usa.com/flags/connecticut.jpg',
   'Delaware': 'http://www.state-flags-usa.com/flags/delaware.jpg',
+  'District of Columbia':
+      'https://cdn.freebiesupply.com/flags/large/2x/washington-dc-state-flag.png',
   'Florida': 'http://www.state-flags-usa.com/flags/florida.jpg',
   'Georgia': 'http://www.state-flags-usa.com/flags/georgia.jpg',
   'Hawaii': 'http://www.state-flags-usa.com/flags/hawaii.jpg',
@@ -65,7 +68,9 @@ class StateScreen extends StatefulWidget {
 class _StateScreenState extends State<StateScreen> {
   final blue = Colors.white;
   List<String> stateNames = [];
+  String counties;
   StateModel sm;
+  CountyModel cm;
   Map<String, StateData> dataMap = Map<String, StateData>();
 
   @override
@@ -79,6 +84,10 @@ class _StateScreenState extends State<StateScreen> {
   setup() async {
     sm = StateModel(stateNames);
     await sm.setupData();
+    cm = CountyModel.empty();
+    counties = await cm.makeCountyCall();
+    counties.split('\n').forEach((line) => print(line));
+    print(counties);
     setState(() {
       dataMap = sm.getMapData;
     });
@@ -109,6 +118,7 @@ class _StateScreenState extends State<StateScreen> {
             generateState('Colorado'),
             generateState('Connecticut'),
             generateState('Delaware'),
+            generateState('DC'),
             generateState('Florida'),
             generateState('Georgia'),
             generateState('Hawaii'),
@@ -190,7 +200,7 @@ class _StateScreenState extends State<StateScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => CountyScreen(name),
+            builder: (BuildContext context) => CountyScreen(name, counties),
           ),
         );
       },
