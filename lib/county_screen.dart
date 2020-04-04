@@ -47,7 +47,7 @@ class _CountyScreenState extends State<CountyScreen> {
           15,
         ), //Color.fromARGB(255, 140, 120, 240),
       ),
-      backgroundColor: Colors.purple[200],
+      backgroundColor: Colors.purple[300],
       body: Column(
         children: <Widget>[
           Hero(
@@ -57,8 +57,6 @@ class _CountyScreenState extends State<CountyScreen> {
               child: Container(
                 color: Colors.purple[200],
                 child: Image(
-//                  height: 150,
-//                  width: 250,
                   image: AssetImage(
                     '${widget.stateNamesAsset}',
                   ),

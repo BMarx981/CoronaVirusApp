@@ -21,6 +21,20 @@ class InfoScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
+                'See where your state and county are in terms of reported CoronaVirus infection cases and '
+                'deaths. Tap a state to see the data for the counties in that state.',
+                style: TextStyle(fontSize: 18),
+              ),
+              Divider(),
+              SizedBox(height: 8),
+              Text(
+                'Remember to wash your hands frequently, stay six feet from others who are not living with '
+                'you. Social distancing is the only way to supress the virus right now.',
+                style: TextStyle(fontSize: 18),
+              ),
+              Divider(),
+              SizedBox(height: 8),
+              Text(
                 'Data provided by the NYTimes',
                 style: TextStyle(fontSize: 18),
               ),
