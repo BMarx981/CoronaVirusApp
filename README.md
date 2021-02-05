@@ -2,15 +2,14 @@
 
 An app to parse and display the NYTimes Coronavirus data collected.
 
-## Getting Started
+## Get Started
 
-This project is a starting point for a Flutter application.
+1. Download the app.
+2. Scroll to the state who's data you wish to see.
+3. Tap the state and scroll through the counties to find more local data.
 
-A few resources to get you started if this is your first Flutter project:
+# Data updates.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Data is updated once a day.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
